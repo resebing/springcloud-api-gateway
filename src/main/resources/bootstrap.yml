@@ -3,23 +3,18 @@ eureka:
   instance:
     # 设置通过IP地址访问。若配置该项为true，则优先取ip-address注册服务到注册中心。否则用默认到内网IP注册。若为false，则取hostname注册到注册中心
     prefer-ip-address: true
-
-
-    # 外网访问设置
-    # 设置的当前服务器的IP 设置后才可以使用外网访问.没设置，默认是内网。本地启动的话，则不需要设置。
-    ip-address: 139.159.207.176
-    # 指定当前服务的端口号。设置后才可以访问。本地启动的话，则不需要设置
-    non-secure-port: ${server.port}
+      # 外网访问设置
+      # 设置的当前服务器的IP 设置后才可以使用外网访问.没设置，默认是内网。本地启动的话，则不需要设置。
+      #    ip-address: 139.159.207.176
+      # 指定当前服务的端口号。设置后才可以访问。本地启动的话，则不需要设置
+      #    non-secure-port: ${server.port}
+      # 设置在Eureka面板显示的服务信息  内网访问
+      #    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
+      # 内网访问设置
     # 设置在Eureka面板显示的服务信息  内网访问
-    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
-
-    # 内网访问设置
-    # 设置在Eureka面板显示的服务信息  内网访问
-    #    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
     # 主机名
     hostname: ${spring.application.name}
-
-
     # 服务失效时间，失效的服务将被剔除。单位：秒，默认：90
     lease-expiration-duration-in-seconds: 90
     # 服务续约（心跳）频率，单位：秒，缺省30
@@ -38,7 +33,7 @@ eureka:
       ## 139.159.207.176华为2核,106.12.194.60:8761百度2核,122.152.216.78腾讯单核
       #      defaultZone: http://139.159.207.176:8761/eureka,http://122.152.216.78:8761/eureka
       #    defaultZone: http://localhost:8761/eureka,http://139.159.207.176:8761/eureka
-#      defaultZone: http://localhost:8761/eureka
+      #      defaultZone: http://localhost:8761/eureka
       # 使用Rancher部署 高可用
       defaultZone: http://eureka1:8761/eureka,http://eureka2:8761/eureka
     #      defaultZone: http://localhost:8761/eureka
