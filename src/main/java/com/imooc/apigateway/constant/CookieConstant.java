@@ -4,7 +4,7 @@ public interface CookieConstant {
 
     String TOKEN = "token";
 
-    String OPENNID = "openid";
+    String OPENID = "openid";
     /**
      * 过期时间单位(秒）
      */

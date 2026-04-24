@@ -1,5 +1,5 @@
 package com.imooc.apigateway.constant;
 
 public interface RedisConstant {
-    String TOKEN = "token_%s" 123;
+    String TOKEN = "token_%s";
 }
