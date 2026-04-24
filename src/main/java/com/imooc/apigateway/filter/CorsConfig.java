@@ -1,10 +1,10 @@
 package com.imooc.apigateway.filter;
 
-import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
@@ -37,7 +37,7 @@ public class CorsConfig {
         corsConfiguration.setMaxAge(300L);
         // path是域名 /**表示所有
         source.registerCorsConfiguration("/**", corsConfiguration);
-        return new CorsFilter();
+        return new CorsFilter(source);
     }
 
 }

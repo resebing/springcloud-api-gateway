@@ -1,16 +1,16 @@
 package com.imooc.apigateway.constant;
 
+/**
+ * 网关中使用的 Cookie 名称与过期等常量
+ */
 public interface CookieConstant {
 
     String TOKEN = "token";
 
-    String OPENNID = "openid";
-    /**
-     * 过期时间单位(秒）
-     */
-    Integer EXPIRE = 7200;
+    String OPENID = "openid";
 
-    private static final String TOKEN = ;
-    private static final String OPENNID = "openid";
-    private static final Integer EXPIRE = 7200;
+    /**
+     * 过期时间单位(秒)
+     */
+    int EXPIRE = 7200;
 }

@@ -1,17 +1,14 @@
 package com.imooc.apigateway.filter;
 
-import com.imooc.apigateway.constant.RedisConstant;
 import com.imooc.apigateway.util.CookieUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_DECORATION_FILTER_ORDER;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
@@ -19,6 +16,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 /**
  * 买家的过滤器
  */
+@Component
 public class AuthBuyerFilter extends ZuulFilter {
 
     /**
@@ -54,10 +52,6 @@ public class AuthBuyerFilter extends ZuulFilter {
         }
         return false;
     }
-
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 实际处理鉴定权限的业务
