@@ -67,6 +67,17 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Spring Boot 2.0.4 管理的 6.0.11.Final 在 JDK 11+ 上依赖已不可用的 javafx 快照；升至 6.0.20 使用 Central 上可解析的 javafx-base -->
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>6.0.20.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator-annotation-processor</artifactId>
+                <version>6.0.20.Final</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -75,6 +86,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
