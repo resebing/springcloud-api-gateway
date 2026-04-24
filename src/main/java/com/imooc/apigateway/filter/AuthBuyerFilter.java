@@ -1,6 +1,6 @@
 package com.imooc.apigateway.filter;
 
-import com.imooc.apigateway.constant.RedisConstant;
+import com.imooc.apigateway.constant.CookieConstant;
 import com.imooc.apigateway.util.CookieUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -8,10 +8,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_DECORATION_FILTER_ORDER;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
@@ -19,6 +19,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 /**
  * 买家的过滤器
  */
+@Component
 public class AuthBuyerFilter extends ZuulFilter {
 
     /**
@@ -79,7 +80,7 @@ public class AuthBuyerFilter extends ZuulFilter {
         // 1、买家调用创建订单服务之前，需要先登陆，登陆后将登陆信息写入到cookie中。
         // 2、如果买家创建订单时，发现没有cookie存在。则设置无权限访问
         // 判断买家登陆的openid在cookie中是否存在 。这里应该填写的URL应该加上服务名称。只有填写上服务名称才会启用过滤器
-        Cookie cookie = CookieUtil.getCookie(request, "openid");
+        Cookie cookie = CookieUtil.getCookie(request, CookieConstant.OPENID);
         if (cookie == null || StringUtils.isBlank(cookie.getValue())) {
             // 设置Zuul没有访问权限
             requestContext.setSendZuulResponse(false);
