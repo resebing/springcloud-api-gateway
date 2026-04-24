@@ -1,0 +1,10 @@
+# 测试环境不连注册中心与配置中心，仅用于 Spring 上下文加载
+spring:
+  cloud:
+    config:
+      enabled: false
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
