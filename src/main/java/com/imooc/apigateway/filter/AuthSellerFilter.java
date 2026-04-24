@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_DECORATION_FILTER_ORDER;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
@@ -61,7 +60,7 @@ public class AuthSellerFilter extends ZuulFilter {
          */
         // 先判断cookie中token是否存在,然后根据token获取redis中保存的token，如果redis中也不存在则一样返回无权限
         // 如果是调用finish这个接口，则进行拦截。判断权限
-        if ("/order/order/finish".equals(request.getRequestURI())) {
+        if ("/order/finish".equals(request.getRequestURI())) {
             return true;
         }
         return false;
