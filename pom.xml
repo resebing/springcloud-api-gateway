@@ -16,6 +16,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <!-- spring-boot 2.0.4 默认 6.0.11 在 JDK11+ 会错误依赖已失效的 openjfx SNAPSHOT，提升到 6.0.12+ 即可 -->
+        <hibernate-validator.version>6.0.18.Final</hibernate-validator.version>
         <!--springBoot对应的SpringCloud的版本号,可以通过官网的Spring.io的project中的SpringCloud的中间页面去查找，SpringCloud的版本号是根据伦敦地铁站命名的-->
         <!--升级版本号-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
@@ -72,6 +74,18 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- Spring 5.0 / CGLIB 在 JDK 16+ 需开放模块，否则 @Configuration 增强失败 -->
+                    <argLine>
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                    </argLine>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
