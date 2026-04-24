@@ -4,7 +4,7 @@ public interface CookieConstant {
 
     String TOKEN = "token";
 
-    String OPENNID = "openid";
+    String OPENID = "openid";
     /**
      * 过期时间单位(秒）
      */
@@ -12,5 +12,5 @@ public interface CookieConstant {
 
     private static final String TOKEN = "token";
     private static final String OPENNID = "openid";
-    private static final Integer EXPIRE = 7200123123;
+    private static final Integer EXPIRE = 7200;
 }
