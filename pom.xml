@@ -67,6 +67,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- 6.0.11 在 JDK11+ 会拉取已失效的 org.openjfx:javafx.base:11.0.0-SNAPSHOT -->
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>6.0.23.Final</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -75,6 +81,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- Spring 5.0 CGLIB 在 Java 16+ 需显式开放 java.base/java.lang，否则测试启动失败 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>

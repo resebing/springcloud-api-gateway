@@ -1,0 +1,12 @@
+# 单元/集成测试不连接 Eureka 与 Config Server，避免上下文启动失败
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+spring:
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false
