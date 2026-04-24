@@ -13,6 +13,4 @@ public interface CookieConstant {
     private static final String TOKEN = "token";
     private static final String OPENNID = "openid";
     private static final Integer EXPIRE = 7200;
-
-    
 }
