@@ -1,8 +1,9 @@
 package com.imooc.apigateway.filter;
 
 import com.google.common.util.concurrent.RateLimiter;
-import com.imooc.apigateway.exception.RateLimiterException;
 import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
@@ -48,16 +49,11 @@ public class RateLimiterFilter extends ZuulFilter {
      */
     @Override
     public Object run() {
-        // 尝试获取令牌。如果没有取到令牌，则返回401。或者其他状态码。或者抛出异常
+        // 尝试获取令牌。如果没有取到令牌，则短路 Zuul 并返回 429，避免未处理异常导致 500
         if (!RATE_LIMITER.tryAcquire()) {
-//            // 获取当前上下文的内容
-//            RequestContext requestContext = RequestContext.getCurrentContext();
-//            // 设置Zuul响应为false。表示不通过
-//            requestContext.setSendZuulResponse(false);
-//            // 设置响应的状态码
-////            requestContext.setResponseStatusCode(401);
-//            requestContext.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
-            throw new RateLimiterException();
+            RequestContext requestContext = RequestContext.getCurrentContext();
+            requestContext.setSendZuulResponse(false);
+            requestContext.setResponseStatusCode(HttpStatus.SC_TOO_MANY_REQUESTS);
         }
         return null;
     }
