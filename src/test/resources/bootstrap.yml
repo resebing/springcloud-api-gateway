@@ -1,0 +1,13 @@
+# 单元测试不连接真实 Eureka/Config 服务，并避免在 JDK9+ 上为旧版 XStream 等依赖枚举大量 add-opens
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+spring:
+  cloud:
+    config:
+      enabled: false
+    service-registry:
+      auto-registration:
+        enabled: false

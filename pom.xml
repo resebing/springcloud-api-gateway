@@ -19,9 +19,16 @@
         <!--springBoot对应的SpringCloud的版本号,可以通过官网的Spring.io的project中的SpringCloud的中间页面去查找，SpringCloud的版本号是根据伦敦地铁站命名的-->
         <!--升级版本号-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <!-- Boot 2.0.4 随带的 hibernate-validator 6.0.x 在 JDK11+ 的 profile 中引用了不存在的 javafx.base SNAPSHOT，覆盖为可解析版本以修复构建 -->
+        <hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
@@ -75,6 +82,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- Spring 5.0 CGLIB 在 JDK9+ 需打开 java.base，否则 @SpringBootTest 无法启动 -->
+                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
