@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_DECORATION_FILTER_ORDER;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
@@ -83,7 +82,7 @@ public class AuthSellerFilter extends ZuulFilter {
         Cookie cookie = CookieUtil.getCookie(request, "token");
         // apiGateway判断用户
         if (cookie == null || StringUtils.isBlank(cookie.getValue())
-                || StringUtils.isEmpty(stringRedisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN, cookie.getValue())))) {
+                || StringUtils.isBlank(stringRedisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN, cookie.getValue())))) {
             // 设置Zuul没有访问权限
             requestContext.setSendZuulResponse(false);
             requestContext.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
