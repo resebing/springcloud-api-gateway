@@ -1,5 +1,6 @@
 package com.imooc.apigateway.filter;
 
+import com.imooc.apigateway.constant.CookieConstant;
 import com.imooc.apigateway.constant.RedisConstant;
 import com.imooc.apigateway.util.CookieUtil;
 import com.netflix.zuul.ZuulFilter;
@@ -80,7 +81,7 @@ public class AuthSellerFilter extends ZuulFilter {
         RequestContext requestContext = RequestContext.getCurrentContext();
         // 获取Request
         HttpServletRequest request = requestContext.getRequest();
-        Cookie cookie = CookieUtil.getCookie(request, "token");
+        Cookie cookie = CookieUtil.getCookie(request, CookieConstant.TOKEN);
         // apiGateway判断用户
         if (cookie == null || StringUtils.isBlank(cookie.getValue())
                 || StringUtils.isEmpty(stringRedisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN, cookie.getValue())))) {
