@@ -25,8 +25,9 @@ public class CorsConfig {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         final CorsConfiguration corsConfiguration = new CorsConfiguration();
-        // 设置允许cookie跨域
-        corsConfiguration.setAllowCredentials(true);
+        // 使用通配符来源时不能同时开启 allowCredentials，否则浏览器会拒绝
+        // 若需携带 cookie 跨域，请将 allowedOrigins 设为具体域名列表，并设 allowCredentials(true)
+        corsConfiguration.setAllowCredentials(false);
         // 设置要支持哪些域名或者哪些域名下的接口  *表示支持所有
         corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
         // 设置域名跨域的头部信息
