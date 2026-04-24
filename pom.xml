@@ -16,6 +16,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <!-- 默认在 JDK9+ 为 Surefire 子进程加模块开放参数；jdk8 profile 在 1.8 上置空，避免非法 JVM 实参 -->
+        <surefire.argline>--add-opens java.base/java.lang=ALL-UNNAMED</surefire.argline>
         <!--springBoot对应的SpringCloud的版本号,可以通过官网的Spring.io的project中的SpringCloud的中间页面去查找，SpringCloud的版本号是根据伦敦地铁站命名的-->
         <!--升级版本号-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
@@ -91,10 +93,22 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                    <argLine>${surefire.argline}</argLine>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>jdk8-surefire</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <surefire.argline></surefire.argline>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
