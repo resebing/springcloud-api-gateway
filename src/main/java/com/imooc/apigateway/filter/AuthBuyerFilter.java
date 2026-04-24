@@ -6,6 +6,7 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 /**
  * 买家的过滤器
  */
+@Component
 public class AuthBuyerFilter extends ZuulFilter {
 
     /**
