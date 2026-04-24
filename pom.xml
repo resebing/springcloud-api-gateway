@@ -56,6 +56,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+        <!-- 排除 hibernate-validator 在部分坏掉的 BOM 中错误引入的 javafx SNAPSHOT，避免构建无法解析依赖 -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx.base</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -72,6 +83,13 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

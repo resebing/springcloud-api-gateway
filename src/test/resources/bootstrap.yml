@@ -1,0 +1,12 @@
+# 测试环境不连注册中心与配置中心，避免在 JDK 9+ 上拉起 Eureka/XStream 等旧栈导致失败
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      enabled: false
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false

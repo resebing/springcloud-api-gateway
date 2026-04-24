@@ -8,10 +8,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_DECORATION_FILTER_ORDER;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
@@ -19,6 +19,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 /**
  * 买家的过滤器
  */
+@Component
 public class AuthBuyerFilter extends ZuulFilter {
 
     /**
@@ -49,7 +50,7 @@ public class AuthBuyerFilter extends ZuulFilter {
         // 获取Request
         HttpServletRequest request = requestContext.getRequest();
         // 如果是这个url则需要进行拦截
-        if ("/order/order/createOrder".equals(request.getRequestURI())) {
+        if ("/order/createOrder".equals(request.getRequestURI())) {
             return true;
         }
         return false;
