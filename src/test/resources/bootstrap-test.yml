@@ -1,0 +1,13 @@
+# 仅测试用：不连 Config、不注册 Eureka，仅校验 Context 能加载
+spring:
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        # 与主配置 bootstrap 中的 discovery 冲突，测试必须关闭否则会要求 DiscoveryClient
+        enabled: false
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
