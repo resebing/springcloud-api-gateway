@@ -1,10 +1,10 @@
 package com.imooc.apigateway.filter;
 
-import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
@@ -25,8 +25,8 @@ public class CorsConfig {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         final CorsConfiguration corsConfiguration = new CorsConfiguration();
-        // 设置允许cookie跨域
-        corsConfiguration.setAllowCredentials(true);
+        // 与通配源配合：allowedOrigins 为 * 时不可同时 allowCredentials（浏览器 CORS 规范会拒绝该组合）
+        corsConfiguration.setAllowCredentials(false);
         // 设置要支持哪些域名或者哪些域名下的接口  *表示支持所有
         corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
         // 设置域名跨域的头部信息
@@ -37,7 +37,7 @@ public class CorsConfig {
         corsConfiguration.setMaxAge(300L);
         // path是域名 /**表示所有
         source.registerCorsConfiguration("/**", corsConfiguration);
-        return new CorsFilter();
+        return new CorsFilter(source);
     }
 
 }
