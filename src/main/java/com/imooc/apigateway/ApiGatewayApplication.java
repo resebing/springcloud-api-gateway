@@ -2,6 +2,7 @@ package com.imooc.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
@@ -24,6 +25,7 @@ public class ApiGatewayApplication {
     // 配置文件的开头
     @ConfigurationProperties("zuul")
     // 动态刷新的范围
+    @Bean
     @RefreshScope
     public ZuulProperties zuulProperties() {
         return new ZuulProperties();

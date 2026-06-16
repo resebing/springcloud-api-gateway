@@ -3,14 +3,14 @@ eureka:
   instance:
     # 设置通过IP地址访问。若配置该项为true，则优先取ip-address注册服务到注册中心。否则用默认到内网IP注册。若为false，则取hostname注册到注册中心
     prefer-ip-address: true
-      # 外网访问设置
-      # 设置的当前服务器的IP 设置后才可以使用外网访问.没设置，默认是内网。本地启动的话，则不需要设置。
-      #    ip-address: 139.159.207.176
-      # 指定当前服务的端口号。设置后才可以访问。本地启动的话，则不需要设置
-      #    non-secure-port: ${server.port}
-      # 设置在Eureka面板显示的服务信息  内网访问
-      #    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
-      # 内网访问设置
+    # 外网访问设置
+    # 设置的当前服务器的IP 设置后才可以使用外网访问.没设置，默认是内网。本地启动的话，则不需要设置。
+    #    ip-address: 139.159.207.176
+    # 指定当前服务的端口号。设置后才可以访问。本地启动的话，则不需要设置
+    #    non-secure-port: ${server.port}
+    # 设置在Eureka面板显示的服务信息  内网访问
+    #    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
+    # 内网访问设置
     # 设置在Eureka面板显示的服务信息  内网访问
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
     # 主机名
